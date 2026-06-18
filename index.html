@@ -1,332 +1,333 @@
-1|1|1|<!DOCTYPE html>
-2|2|2|<html lang="zh-CN">
-3|3|3|<head>
-4|4|4|  <meta charset="UTF-8">
-5|5|5|  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-6|6|6|  <meta name="description" content="AI日报 - 2026年06月18日精选AI工具与趋势。每日从GitHub Trending和Product Hunt采集最新AI/ML项目。">
-7|7|7|  <meta name="keywords" content="AI日报, AI工具, GitHub Trending, Product Hunt, 人工智能, LLM, MCP, 开源项目">
-8|8|8|  <meta name="author" content="AI站群">
-9|9|9|  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-10|10|10|  
-11|11|11|  <!-- Open Graph -->
-12|12|12|  <meta property="og:title" content="AI日报 - 2026年06月18日">
-13|13|13|  <meta property="og:description" content="精选5个AI工具，来自GitHub Trending和Product Hunt">
-14|14|14|  <meta property="og:type" content="website">
-15|15|15|  <meta property="og:url" content="https://ai-daily.globalxyz.xyz/" />
-16|16|16|  <meta property="og:image" content="http://15.152.52.70.nip.io/ai-daily-news/og-image.png">
-17|17|17|  <meta property="og:locale" content="zh_CN">
-18|18|18|  <meta property="og:site_name" content="AI Daily News" />
-19|19|19|  
-20|20|20|  <!-- Twitter Card -->
-21|21|21|  <meta name="twitter:card" content="summary_large_image">
-22|22|22|  <meta name="twitter:title" content="AI日报 - 2026年06月18日">
-23|23|23|  <meta name="twitter:description" content="精选5个AI工具，来自GitHub Trending和Product Hunt">
-24|24|24|  
-25|25|25|  <!-- Canonical -->
-26|26|26|  <link rel="canonical" href="https://ai-daily.globalxyz.xyz/" />
-27|27|27|  
-28|28|28|  <title>AI日报站 - 每日精选AI工具</title>
-29|29|29|  
-30|30|30|  <style>
-31|31|31|    * { margin: 0; padding: 0; box-sizing: border-box; }
-32|32|32|    
-33|33|33|    body {
-34|34|34|      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-35|35|35|      background: linear-gradient(135deg, #0a0a1a, #1a1a3e, #0d2137, #0a0a1a);
-36|36|36|      color: #e0e0e0;
-37|37|37|      min-height: 100vh;
-38|38|38|      padding: 20px;
-39|39|39|    }
-40|40|40|    
-41|41|41|    header {
-42|42|42|      text-align: center;
-43|43|43|      padding: 40px 20px 20px;
-44|44|44|    }
-45|45|45|    
-46|46|46|    header h1 {
-47|47|47|      font-size: 2.2em;
-48|48|48|      background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
-49|49|49|      -webkit-background-clip: text;
-50|50|50|      -webkit-text-fill-color: transparent;
-51|51|51|      background-clip: text;
-52|52|52|      margin-bottom: 8px;
-53|53|53|    }
-54|54|54|    
-55|55|55|    header .date {
-56|56|56|      color: #888;
-57|57|57|      font-size: 1em;
-58|58|58|    }
-59|59|59|    
-60|60|60|    header .subtitle {
-61|61|61|      color: #aaa;
-62|62|62|      margin-top: 8px;
-63|63|63|      font-size: 0.95em;
-64|64|64|    }
-65|65|65|    
-66|66|66|    .container {
-67|67|67|      max-width: 900px;
-68|68|68|      margin: 0 auto;
-69|69|69|    }
-70|70|70|    
-71|71|71|    .grid {
-72|72|72|      display: grid;
-73|73|73|      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-74|74|74|      gap: 20px;
-75|75|75|      padding: 20px 0;
-76|76|76|    }
-77|77|77|    
-78|78|78|    .card {
-79|79|79|      background: rgba(255, 255, 255, 0.05);
-80|80|80|      border: 1px solid rgba(255, 255, 255, 0.1);
-81|81|81|      border-radius: 16px;
-82|82|82|      padding: 24px;
-83|83|83|      text-decoration: none;
-84|84|84|      color: inherit;
-85|85|85|      transition: all 0.3s ease;
-86|86|86|      position: relative;
-87|87|87|      overflow: hidden;
-88|88|88|    }
-89|89|89|    
-90|90|90|    .card:hover {
-91|91|91|      transform: translateY(-4px);
-92|92|92|      border-color: rgba(239, 68, 68, 0.4);
-93|93|93|      box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
-94|94|94|      background: rgba(255, 255, 255, 0.08);
-95|95|95|    }
-96|96|96|    
-97|97|97|    .card-badge {
-98|98|98|      position: absolute;
-99|99|99|      top: 16px;
-100|100|100|      right: 16px;
-101|101|101|      font-size: 1.5em;
-102|102|102|      opacity: 0.7;
-103|103|103|    }
-104|104|104|    
-105|105|105|    .card h2 {
-106|106|106|      font-size: 1.2em;
-107|107|107|      margin-bottom: 6px;
-108|108|108|      color: #fff;
-109|109|109|      padding-right: 40px;
-110|110|110|    }
-111|111|111|    
-112|112|112|    .card .source {
-113|113|113|      font-size: 0.8em;
-114|114|114|      color: #f97316;
-115|115|115|      text-transform: uppercase;
-116|116|116|      letter-spacing: 0.5px;
-117|117|117|      margin-bottom: 10px;
-118|118|118|    }
-119|119|119|    
-120|120|120|    .card .desc {
-121|121|121|      color: #bbb;
-122|122|122|      font-size: 0.92em;
-123|123|123|      line-height: 1.5;
-124|124|124|      margin-bottom: 12px;
-125|125|125|    }
-126|126|126|    
-127|127|127|    .card .meta {
-128|128|128|      display: flex;
-129|129|129|      gap: 12px;
-130|130|130|      flex-wrap: wrap;
-131|131|131|    }
-132|132|132|    
-133|133|133|    .card .stars {
-134|134|134|      color: #eab308;
-135|135|135|      font-size: 0.85em;
-136|136|136|    }
-137|137|137|    
-138|138|138|    .card .lang {
-139|139|139|      color: #888;
-140|140|140|      font-size: 0.85em;
-141|141|141|      background: rgba(255,255,255,0.05);
-142|142|142|      padding: 2px 8px;
-143|143|143|      border-radius: 4px;
-144|144|144|    }
-145|145|145|    
-146|146|146|    /* Footer */
-147|147|147|    footer {
-148|148|148|      text-align: center;
-149|149|149|      padding: 40px 20px;
-150|150|150|      border-top: 1px solid rgba(255,255,255,0.1);
-151|151|151|      margin-top: 40px;
-152|152|152|    }
-153|153|153|    
-154|154|154|    footer p {
-155|155|155|      color: #666;
-156|156|156|      font-size: 0.85em;
-157|157|157|      margin-bottom: 12px;
-158|158|158|    }
-159|159|159|    
-160|160|160|    .sources {
-161|161|161|      display: flex;
-162|162|162|      justify-content: center;
-163|163|163|      gap: 16px;
-164|164|164|      flex-wrap: wrap;
-165|165|165|      margin-top: 12px;
-166|166|166|    }
-167|167|167|    
-168|168|168|    .sources a {
-169|169|169|      color: #888;
-170|170|170|      text-decoration: none;
-171|171|171|      font-size: 0.85em;
-172|172|172|      transition: color 0.2s;
-173|173|173|    }
-174|174|174|    
-175|175|175|    .sources a:hover {
-176|176|176|      color: #f97316;
-177|177|177|    }
-178|178|178|    
-179|179|179|    .cross-links {
-180|180|180|      display: flex;
-181|181|181|      justify-content: center;
-182|182|182|      flex-wrap: wrap;
-183|183|183|      gap: 12px;
-184|184|184|      margin-top: 20px;
-185|185|185|    }
-186|186|186|    
-187|187|187|    .cross-links a {
-188|188|188|      color: #7b2ff7;
-189|189|189|      text-decoration: none;
-190|190|190|      font-size: 0.9em;
-191|191|191|    }
-192|192|192|    
-193|193|193|    .cross-links a:hover {
-194|194|194|      text-decoration: underline;
-195|195|195|    }
-196|196|196|    
-197|197|197|    /* Responsive */
-198|198|198|    @media (max-width: 600px) {
-199|199|199|      body { padding: 10px; }
-200|200|200|      header h1 { font-size: 1.5em; }
-201|201|201|      .card { padding: 16px; }
-202|202|202|      .card h2 { font-size: 1.1em; }
-203|203|203|      .grid { grid-template-columns: 1fr; }
-204|204|204|    }
-205|205|205|  </style>
-206|206|206|    <link rel="alternate" hreflang="en" href="https://ai-daily.globalxyz.xyz/" />
-207|207|    <link rel="alternate" hreflang="zh-CN" href="https://ai-daily.globalxyz.xyz/" />
-208|208|    <link rel="alternate" hreflang="x-default" href="https://ai-daily.globalxyz.xyz/" />
-209|209|    <style>
-        .lang-switch{position:fixed;top:15px;right:15px;z-index:9999;display:flex;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.15);font-size:13px}
-        .lang-switch button{border:none;padding:6px 14px;cursor:pointer;font-weight:500;transition:all .2s}
-        .lang-switch .lang-en{background:#1a1a2e;color:#fff}
-        .lang-switch .lang-zh{background:#fff;color:#333;border:1px solid #ddd}
-        .lang-switch .lang-en.active{background:#3b82f6;color:#fff}
-        .lang-switch .lang-zh.active{background:#ef4444;color:#fff;border-color:#ef4444}
-        .lang-switch button:hover{opacity:.85}
-        .zh-content{display:none}
-        body.lang-zh .en-content{display:none}
-        body.lang-zh .zh-content{display:block}
-    </style></head>
-210|210|207|<body class="lang-en">
-    <div class="lang-switch">
-        <button class="lang-en active" onclick="setLang('en')">English</button>
-        <button class="lang-zh" onclick="setLang('zh')">中文</button>
-    </div>
-211|211|208|  <div class="container">
-212|212|209|    <header>
-213|213|210|      <h1>🤖 AI日报</h1>
-214|214|211|      <p class="date">2026年06月18日</p>
-215|215|212|      <p class="subtitle">每日精选 AI 工具与开源项目</p>
-216|216|213|    </header>
-217|217|214|    
-218|218|215|    <div class="grid">
-219|219|216|      
-220|220|217|    <a href="https://github.com/DeusData/codebase-memory-mcp" class="card" target="_blank" rel="noopener">
-221|221|218|      <div class="card-badge">🔥</div>
-222|222|219|      <h2>DeusData/codebase-memory-mcp</h2>
-223|223|220|      <p class="source">GitHub Trending</p>
-224|224|221|      <p class="desc">High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.</p>
-225|225|222|      <div class="meta"><span class="stars">371 stars today ⭐ today</span><span class="lang">C</span></div>
-226|226|223|    </a>
-227|227|224|    
-228|228|225|    <a href="https://github.com/Panniantong/Agent-Reach" class="card" target="_blank" rel="noopener">
-229|229|226|      <div class="card-badge">🔥</div>
-230|230|227|      <h2>Panniantong/Agent-Reach</h2>
-231|231|228|      <p class="source">GitHub Trending</p>
-232|232|229|      <p class="desc">Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</p>
-233|233|230|      <div class="meta"><span class="stars">1,161 stars today ⭐ today</span><span class="lang">Python</span></div>
-234|234|231|    </a>
-235|235|232|    
-236|236|233|    <a href="https://github.com/obra/superpowers" class="card" target="_blank" rel="noopener">
-237|237|234|      <div class="card-badge">🔥</div>
-238|238|235|      <h2>obra/superpowers</h2>
-239|239|236|      <p class="source">GitHub Trending</p>
-240|240|237|      <p class="desc">An agentic skills framework & software development methodology that works.</p>
-241|241|238|      <div class="meta"><span class="stars">1,129 stars today ⭐ today</span><span class="lang">Shell</span></div>
-242|242|239|    </a>
-243|243|240|    
-244|244|241|    <a href="https://www.producthunt.com/products/clawease" class="card" target="_blank" rel="noopener">
-245|245|242|      <div class="card-badge">🚀</div>
-246|246|243|      <h2>ClawEase</h2>
-247|247|244|      <p class="source">Product Hunt</p>
-248|248|245|      <p class="desc">An AI business operator that books appointments for SMBs.</p>
-249|249|246|      <div class="meta"></div>
-250|250|247|    </a>
-251|251|248|    
-252|252|249|    <a href="https://www.producthunt.com/products/fundraislyai" class="card" target="_blank" rel="noopener">
-253|253|250|      <div class="card-badge">🚀</div>
-254|254|251|      <h2>FundraislyAI</h2>
-255|255|252|      <p class="source">Product Hunt</p>
-256|256|253|      <p class="desc">Fundraising agent that finds investors and books meetings.</p>
-257|257|254|      <div class="meta"></div>
-258|258|255|    </a>
-259|259|256|    
-260|260|257|    </div>
-261|261|258|    
-262|262|259|    <footer>
-263|263|260|      <p>📊 数据来源：GitHub Trending (AI/ML) & Product Hunt</p>
-264|264|261|      <div class="sources">
-265|265|262|        <a href="https://github.com/trending?since=daily" target="_blank" rel="noopener">GitHub Trending</a>
-266|266|263|        <a href="https://www.producthunt.com/" target="_blank" rel="noopener">Product Hunt</a>
-267|267|264|      </div>
-268|268|265|      <div class="cross-links">
-269|269|266|        <a href="/ai-daily-news/">🤖 AI日报</a>
-270|270|267|        <a href="/english-interview/">🚀 English Interview</a>
-271|271|268|        <a href="/chuangye-weekly/">🌏 出海工具周报</a>
-272|272|269|        <a href="/indie-dev-weekly/">🧑‍💻 独立开发者周刊</a>
-273|273|270|        <a href="/nocode-tools/">🔧 NoCode工具导航</a>
-274|274|271|      </div>
-275|275|272|      <p style="margin-top: 20px; color: #444;">© 2026 AI站群 · 自动采集生成</p>
-276|276|273|    </footer>
-277|277|274|  </div>
-278|278|275|  
-279|279|276|  <script type="application/ld+json">
-280|280|277|  {
-281|281|278|    "@context": "https://schema.org",
-282|282|279|    "@type": "WebSite",
-283|283|280|    "name": "AI日报",
-284|284|281|    "url": "http://15.152.52.70.nip.io/ai-daily-news/",
-285|285|282|    "description": "每日精选AI工具与开源项目，来自GitHub Trending和Product Hunt",
-286|286|283|    "publisher": {"@type": "Organization", "name": "AI站群"}
-287|287|284|  }
-288|288|285|  </script>
-289|289|286|  <script type="application/ld+json">
-290|290|287|  {
-291|291|288|    "@context": "https://schema.org",
-292|292|289|    "@type": "CollectionPage",
-293|293|290|    "name": "AI日报 - 2026年06月18日",
-294|294|291|    "description": "精选5个AI工具，来自GitHub Trending和Product Hunt",
-295|295|292|    "url": "http://15.152.52.70.nip.io/ai-daily-news/",
-296|296|293|    "mainEntity": {
-297|297|294|      "@type": "ItemList",
-298|298|295|      "itemListElement": [
-299|299|296|        {"@type": "ListItem", "position": 1, "name": "DeusData/codebase-memory-mcp", "url": "https://github.com/DeusData/codebase-memory-mcp"},{"@type": "ListItem", "position": 2, "name": "Panniantong/Agent-Reach", "url": "https://github.com/Panniantong/Agent-Reach"},{"@type": "ListItem", "position": 3, "name": "obra/superpowers", "url": "https://github.com/obra/superpowers"},{"@type": "ListItem", "position": 4, "name": "ClawEase", "url": "https://www.producthunt.com/products/clawease"},{"@type": "ListItem", "position": 5, "name": "FundraislyAI", "url": "https://www.producthunt.com/products/fundraislyai"}
-300|300|297|      ]
-301|301|298|    }
-302|302|299|  }
-303|303|300|  </script>
-304|304|301|    <script>
-    function setLang(lang) {
-        document.body.className = 'lang-' + lang;
-        document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
-        document.querySelector('.lang-switch .lang-' + lang).classList.add('active');
-        localStorage.setItem('site_lang', lang);
-    }
-    (function() {
-        var saved = localStorage.getItem('site_lang') || 'en';
-        setLang(saved);
-    })();
-    </script>
-</body>
-305|305|302|</html>
+1|1|1|1|<!DOCTYPE html>
+2|2|2|2|<html lang="zh-CN">
+3|3|3|3|<head>
+    <link rel="preconnect" href="https://shijiezhichang.github.io" crossorigin>
+4|4|4|4|  <meta charset="UTF-8">
+5|5|5|5|  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6|6|6|6|  <meta name="description" content="AI日报 - 2026年06月18日精选AI工具与趋势。每日从GitHub Trending和Product Hunt采集最新AI/ML项目。">
+7|7|7|7|  <meta name="keywords" content="AI日报, AI工具, GitHub Trending, Product Hunt, 人工智能, LLM, MCP, 开源项目">
+8|8|8|8|  <meta name="author" content="AI站群">
+9|9|9|9|  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+10|10|10|10|  
+11|11|11|11|  <!-- Open Graph -->
+12|12|12|12|  <meta property="og:title" content="AI日报 - 2026年06月18日">
+13|13|13|13|  <meta property="og:description" content="精选5个AI工具，来自GitHub Trending和Product Hunt">
+14|14|14|14|  <meta property="og:type" content="website">
+15|15|15|15|  <meta property="og:url" content="https://ai-daily.globalxyz.xyz/" />
+16|16|16|16|  <meta property="og:image" content="http://15.152.52.70.nip.io/ai-daily-news/og-image.png">
+17|17|17|17|  <meta property="og:locale" content="zh_CN">
+18|18|18|18|  <meta property="og:site_name" content="AI Daily News" />
+19|19|19|19|  
+20|20|20|20|  <!-- Twitter Card -->
+21|21|21|21|  <meta name="twitter:card" content="summary_large_image">
+22|22|22|22|  <meta name="twitter:title" content="AI日报 - 2026年06月18日">
+23|23|23|23|  <meta name="twitter:description" content="精选5个AI工具，来自GitHub Trending和Product Hunt">
+24|24|24|24|  
+25|25|25|25|  <!-- Canonical -->
+26|26|26|26|  <link rel="canonical" href="https://ai-daily.globalxyz.xyz/" />
+27|27|27|27|  
+28|28|28|28|  <title>AI日报站 - 每日精选AI工具</title>
+29|29|29|29|  
+30|30|30|30|  <style>
+31|31|31|31|    * { margin: 0; padding: 0; box-sizing: border-box; }
+32|32|32|32|    
+33|33|33|33|    body {
+34|34|34|34|      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+35|35|35|35|      background: linear-gradient(135deg, #0a0a1a, #1a1a3e, #0d2137, #0a0a1a);
+36|36|36|36|      color: #e0e0e0;
+37|37|37|37|      min-height: 100vh;
+38|38|38|38|      padding: 20px;
+39|39|39|39|    }
+40|40|40|40|    
+41|41|41|41|    header {
+42|42|42|42|      text-align: center;
+43|43|43|43|      padding: 40px 20px 20px;
+44|44|44|44|    }
+45|45|45|45|    
+46|46|46|46|    header h1 {
+47|47|47|47|      font-size: 2.2em;
+48|48|48|48|      background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
+49|49|49|49|      -webkit-background-clip: text;
+50|50|50|50|      -webkit-text-fill-color: transparent;
+51|51|51|51|      background-clip: text;
+52|52|52|52|      margin-bottom: 8px;
+53|53|53|53|    }
+54|54|54|54|    
+55|55|55|55|    header .date {
+56|56|56|56|      color: #888;
+57|57|57|57|      font-size: 1em;
+58|58|58|58|    }
+59|59|59|59|    
+60|60|60|60|    header .subtitle {
+61|61|61|61|      color: #aaa;
+62|62|62|62|      margin-top: 8px;
+63|63|63|63|      font-size: 0.95em;
+64|64|64|64|    }
+65|65|65|65|    
+66|66|66|66|    .container {
+67|67|67|67|      max-width: 900px;
+68|68|68|68|      margin: 0 auto;
+69|69|69|69|    }
+70|70|70|70|    
+71|71|71|71|    .grid {
+72|72|72|72|      display: grid;
+73|73|73|73|      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+74|74|74|74|      gap: 20px;
+75|75|75|75|      padding: 20px 0;
+76|76|76|76|    }
+77|77|77|77|    
+78|78|78|78|    .card {
+79|79|79|79|      background: rgba(255, 255, 255, 0.05);
+80|80|80|80|      border: 1px solid rgba(255, 255, 255, 0.1);
+81|81|81|81|      border-radius: 16px;
+82|82|82|82|      padding: 24px;
+83|83|83|83|      text-decoration: none;
+84|84|84|84|      color: inherit;
+85|85|85|85|      transition: all 0.3s ease;
+86|86|86|86|      position: relative;
+87|87|87|87|      overflow: hidden;
+88|88|88|88|    }
+89|89|89|89|    
+90|90|90|90|    .card:hover {
+91|91|91|91|      transform: translateY(-4px);
+92|92|92|92|      border-color: rgba(239, 68, 68, 0.4);
+93|93|93|93|      box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+94|94|94|94|      background: rgba(255, 255, 255, 0.08);
+95|95|95|95|    }
+96|96|96|96|    
+97|97|97|97|    .card-badge {
+98|98|98|98|      position: absolute;
+99|99|99|99|      top: 16px;
+100|100|100|100|      right: 16px;
+101|101|101|101|      font-size: 1.5em;
+102|102|102|102|      opacity: 0.7;
+103|103|103|103|    }
+104|104|104|104|    
+105|105|105|105|    .card h2 {
+106|106|106|106|      font-size: 1.2em;
+107|107|107|107|      margin-bottom: 6px;
+108|108|108|108|      color: #fff;
+109|109|109|109|      padding-right: 40px;
+110|110|110|110|    }
+111|111|111|111|    
+112|112|112|112|    .card .source {
+113|113|113|113|      font-size: 0.8em;
+114|114|114|114|      color: #f97316;
+115|115|115|115|      text-transform: uppercase;
+116|116|116|116|      letter-spacing: 0.5px;
+117|117|117|117|      margin-bottom: 10px;
+118|118|118|118|    }
+119|119|119|119|    
+120|120|120|120|    .card .desc {
+121|121|121|121|      color: #bbb;
+122|122|122|122|      font-size: 0.92em;
+123|123|123|123|      line-height: 1.5;
+124|124|124|124|      margin-bottom: 12px;
+125|125|125|125|    }
+126|126|126|126|    
+127|127|127|127|    .card .meta {
+128|128|128|128|      display: flex;
+129|129|129|129|      gap: 12px;
+130|130|130|130|      flex-wrap: wrap;
+131|131|131|131|    }
+132|132|132|132|    
+133|133|133|133|    .card .stars {
+134|134|134|134|      color: #eab308;
+135|135|135|135|      font-size: 0.85em;
+136|136|136|136|    }
+137|137|137|137|    
+138|138|138|138|    .card .lang {
+139|139|139|139|      color: #888;
+140|140|140|140|      font-size: 0.85em;
+141|141|141|141|      background: rgba(255,255,255,0.05);
+142|142|142|142|      padding: 2px 8px;
+143|143|143|143|      border-radius: 4px;
+144|144|144|144|    }
+145|145|145|145|    
+146|146|146|146|    /* Footer */
+147|147|147|147|    footer {
+148|148|148|148|      text-align: center;
+149|149|149|149|      padding: 40px 20px;
+150|150|150|150|      border-top: 1px solid rgba(255,255,255,0.1);
+151|151|151|151|      margin-top: 40px;
+152|152|152|152|    }
+153|153|153|153|    
+154|154|154|154|    footer p {
+155|155|155|155|      color: #666;
+156|156|156|156|      font-size: 0.85em;
+157|157|157|157|      margin-bottom: 12px;
+158|158|158|158|    }
+159|159|159|159|    
+160|160|160|160|    .sources {
+161|161|161|161|      display: flex;
+162|162|162|162|      justify-content: center;
+163|163|163|163|      gap: 16px;
+164|164|164|164|      flex-wrap: wrap;
+165|165|165|165|      margin-top: 12px;
+166|166|166|166|    }
+167|167|167|167|    
+168|168|168|168|    .sources a {
+169|169|169|169|      color: #888;
+170|170|170|170|      text-decoration: none;
+171|171|171|171|      font-size: 0.85em;
+172|172|172|172|      transition: color 0.2s;
+173|173|173|173|    }
+174|174|174|174|    
+175|175|175|175|    .sources a:hover {
+176|176|176|176|      color: #f97316;
+177|177|177|177|    }
+178|178|178|178|    
+179|179|179|179|    .cross-links {
+180|180|180|180|      display: flex;
+181|181|181|181|      justify-content: center;
+182|182|182|182|      flex-wrap: wrap;
+183|183|183|183|      gap: 12px;
+184|184|184|184|      margin-top: 20px;
+185|185|185|185|    }
+186|186|186|186|    
+187|187|187|187|    .cross-links a {
+188|188|188|188|      color: #7b2ff7;
+189|189|189|189|      text-decoration: none;
+190|190|190|190|      font-size: 0.9em;
+191|191|191|191|    }
+192|192|192|192|    
+193|193|193|193|    .cross-links a:hover {
+194|194|194|194|      text-decoration: underline;
+195|195|195|195|    }
+196|196|196|196|    
+197|197|197|197|    /* Responsive */
+198|198|198|198|    @media (max-width: 600px) {
+199|199|199|199|      body { padding: 10px; }
+200|200|200|200|      header h1 { font-size: 1.5em; }
+201|201|201|201|      .card { padding: 16px; }
+202|202|202|202|      .card h2 { font-size: 1.1em; }
+203|203|203|203|      .grid { grid-template-columns: 1fr; }
+204|204|204|204|    }
+205|205|205|205|  </style>
+206|206|206|206|    <link rel="alternate" hreflang="en" href="https://ai-daily.globalxyz.xyz/" />
+207|207|207|    <link rel="alternate" hreflang="zh-CN" href="https://ai-daily.globalxyz.xyz/" />
+208|208|208|    <link rel="alternate" hreflang="x-default" href="https://ai-daily.globalxyz.xyz/" />
+209|209|209|    <style>
+210|        .lang-switch{position:fixed;top:15px;right:15px;z-index:9999;display:flex;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.15);font-size:13px}
+211|        .lang-switch button{border:none;padding:6px 14px;cursor:pointer;font-weight:500;transition:all .2s}
+212|        .lang-switch .lang-en{background:#1a1a2e;color:#fff}
+213|        .lang-switch .lang-zh{background:#fff;color:#333;border:1px solid #ddd}
+214|        .lang-switch .lang-en.active{background:#3b82f6;color:#fff}
+215|        .lang-switch .lang-zh.active{background:#ef4444;color:#fff;border-color:#ef4444}
+216|        .lang-switch button:hover{opacity:.85}
+217|        .zh-content{display:none}
+218|        body.lang-zh .en-content{display:none}
+219|        body.lang-zh .zh-content{display:block}
+220|    </style></head>
+221|210|210|207|<body class="lang-en">
+222|    <div class="lang-switch">
+223|        <button class="lang-en active" onclick="setLang('en')">English</button>
+224|        <button class="lang-zh" onclick="setLang('zh')">中文</button>
+225|    </div>
+226|211|211|208|  <div class="container">
+227|212|212|209|    <header>
+228|213|213|210|      <h1>🤖 AI日报</h1>
+229|214|214|211|      <p class="date">2026年06月18日</p>
+230|215|215|212|      <p class="subtitle">每日精选 AI 工具与开源项目</p>
+231|216|216|213|    </header>
+232|217|217|214|    
+233|218|218|215|    <div class="grid">
+234|219|219|216|      
+235|220|220|217|    <a href="https://github.com/DeusData/codebase-memory-mcp" class="card" target="_blank" rel="noopener">
+236|221|221|218|      <div class="card-badge">🔥</div>
+237|222|222|219|      <h2>DeusData/codebase-memory-mcp</h2>
+238|223|223|220|      <p class="source">GitHub Trending</p>
+239|224|224|221|      <p class="desc">High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.</p>
+240|225|225|222|      <div class="meta"><span class="stars">371 stars today ⭐ today</span><span class="lang">C</span></div>
+241|226|226|223|    </a>
+242|227|227|224|    
+243|228|228|225|    <a href="https://github.com/Panniantong/Agent-Reach" class="card" target="_blank" rel="noopener">
+244|229|229|226|      <div class="card-badge">🔥</div>
+245|230|230|227|      <h2>Panniantong/Agent-Reach</h2>
+246|231|231|228|      <p class="source">GitHub Trending</p>
+247|232|232|229|      <p class="desc">Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</p>
+248|233|233|230|      <div class="meta"><span class="stars">1,161 stars today ⭐ today</span><span class="lang">Python</span></div>
+249|234|234|231|    </a>
+250|235|235|232|    
+251|236|236|233|    <a href="https://github.com/obra/superpowers" class="card" target="_blank" rel="noopener">
+252|237|237|234|      <div class="card-badge">🔥</div>
+253|238|238|235|      <h2>obra/superpowers</h2>
+254|239|239|236|      <p class="source">GitHub Trending</p>
+255|240|240|237|      <p class="desc">An agentic skills framework & software development methodology that works.</p>
+256|241|241|238|      <div class="meta"><span class="stars">1,129 stars today ⭐ today</span><span class="lang">Shell</span></div>
+257|242|242|239|    </a>
+258|243|243|240|    
+259|244|244|241|    <a href="https://www.producthunt.com/products/clawease" class="card" target="_blank" rel="noopener">
+260|245|245|242|      <div class="card-badge">🚀</div>
+261|246|246|243|      <h2>ClawEase</h2>
+262|247|247|244|      <p class="source">Product Hunt</p>
+263|248|248|245|      <p class="desc">An AI business operator that books appointments for SMBs.</p>
+264|249|249|246|      <div class="meta"></div>
+265|250|250|247|    </a>
+266|251|251|248|    
+267|252|252|249|    <a href="https://www.producthunt.com/products/fundraislyai" class="card" target="_blank" rel="noopener">
+268|253|253|250|      <div class="card-badge">🚀</div>
+269|254|254|251|      <h2>FundraislyAI</h2>
+270|255|255|252|      <p class="source">Product Hunt</p>
+271|256|256|253|      <p class="desc">Fundraising agent that finds investors and books meetings.</p>
+272|257|257|254|      <div class="meta"></div>
+273|258|258|255|    </a>
+274|259|259|256|    
+275|260|260|257|    </div>
+276|261|261|258|    
+277|262|262|259|    <footer>
+278|263|263|260|      <p>📊 数据来源：GitHub Trending (AI/ML) & Product Hunt</p>
+279|264|264|261|      <div class="sources">
+280|265|265|262|        <a href="https://github.com/trending?since=daily" target="_blank" rel="noopener">GitHub Trending</a>
+281|266|266|263|        <a href="https://www.producthunt.com/" target="_blank" rel="noopener">Product Hunt</a>
+282|267|267|264|      </div>
+283|268|268|265|      <div class="cross-links">
+284|269|269|266|        <a href="/ai-daily-news/">🤖 AI日报</a>
+285|270|270|267|        <a href="/english-interview/">🚀 English Interview</a>
+286|271|271|268|        <a href="/chuangye-weekly/">🌏 出海工具周报</a>
+287|272|272|269|        <a href="/indie-dev-weekly/">🧑‍💻 独立开发者周刊</a>
+288|273|273|270|        <a href="/nocode-tools/">🔧 NoCode工具导航</a>
+289|274|274|271|      </div>
+290|275|275|272|      <p style="margin-top: 20px; color: #444;">© 2026 AI站群 · 自动采集生成</p>
+291|276|276|273|    </footer>
+292|277|277|274|  </div>
+293|278|278|275|  
+294|279|279|276|  <script type="application/ld+json">
+295|280|280|277|  {
+296|281|281|278|    "@context": "https://schema.org",
+297|282|282|279|    "@type": "WebSite",
+298|283|283|280|    "name": "AI日报",
+299|284|284|281|    "url": "http://15.152.52.70.nip.io/ai-daily-news/",
+300|285|285|282|    "description": "每日精选AI工具与开源项目，来自GitHub Trending和Product Hunt",
+301|286|286|283|    "publisher": {"@type": "Organization", "name": "AI站群"}
+302|287|287|284|  }
+303|288|288|285|  </script>
+304|289|289|286|  <script type="application/ld+json">
+305|290|290|287|  {
+306|291|291|288|    "@context": "https://schema.org",
+307|292|292|289|    "@type": "CollectionPage",
+308|293|293|290|    "name": "AI日报 - 2026年06月18日",
+309|294|294|291|    "description": "精选5个AI工具，来自GitHub Trending和Product Hunt",
+310|295|295|292|    "url": "http://15.152.52.70.nip.io/ai-daily-news/",
+311|296|296|293|    "mainEntity": {
+312|297|297|294|      "@type": "ItemList",
+313|298|298|295|      "itemListElement": [
+314|299|299|296|        {"@type": "ListItem", "position": 1, "name": "DeusData/codebase-memory-mcp", "url": "https://github.com/DeusData/codebase-memory-mcp"},{"@type": "ListItem", "position": 2, "name": "Panniantong/Agent-Reach", "url": "https://github.com/Panniantong/Agent-Reach"},{"@type": "ListItem", "position": 3, "name": "obra/superpowers", "url": "https://github.com/obra/superpowers"},{"@type": "ListItem", "position": 4, "name": "ClawEase", "url": "https://www.producthunt.com/products/clawease"},{"@type": "ListItem", "position": 5, "name": "FundraislyAI", "url": "https://www.producthunt.com/products/fundraislyai"}
+315|300|300|297|      ]
+316|301|301|298|    }
+317|302|302|299|  }
+318|303|303|300|  </script>
+319|304|304|301|    <script>
+320|    function setLang(lang) {
+321|        document.body.className = 'lang-' + lang;
+322|        document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+323|        document.querySelector('.lang-switch .lang-' + lang).classList.add('active');
+324|        localStorage.setItem('site_lang', lang);
+325|    }
+326|    (function() {
+327|        var saved = localStorage.getItem('site_lang') || 'en';
+328|        setLang(saved);
+329|    })();
+330|    </script>
+331|</body>
+332|305|305|302|</html>
