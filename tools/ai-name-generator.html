@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 命名生成器 - AI日报工具集</title>
+<meta name="description" content="AI工具命名生成器，输入关键词用预设词库组合生成AI产品名，中英文创意命名建议">
+<meta name="keywords" content="AI命名,产品名称生成,创意命名,AI工具起名">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#e0e0e0;min-height:100vh}
+.wrap{max-width:800px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 20px}
+header h1{font-size:1.8rem;background:linear-gradient(90deg,#00d2ff,#3a7bd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+header p{color:#999;margin-top:6px;font-size:.9rem}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;margin:24px 0}
+label{display:block;font-size:.9rem;color:#ccc;margin-bottom:6px;margin-top:16px}
+input[type=text],textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:1rem;outline:none;transition:border-color .2s}
+input[type=text]:focus,textarea:focus{border-color:#00d2ff}
+button{margin-top:20px;padding:12px 32px;background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer;transition:opacity .2s}
+button:hover{opacity:.85}
+.result-area{margin-top:20px}
+.result-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
+.result-card .name{font-size:1.1rem;color:#fff;font-weight:600}
+.result-card .sub{font-size:.85rem;color:#888;margin-top:4px}
+.copy-btn{background:rgba(0,210,255,.15);border:1px solid rgba(0,210,255,.3);color:#00d2ff;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.85rem;white-space:nowrap}
+.copy-btn:hover{background:rgba(0,210,255,.25)}
+.back-link{display:inline-block;color:#7ec8e3;text-decoration:none;font-size:.9rem;margin-bottom:10px}
+.back-link:hover{text-decoration:underline}
+.nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:20px 0;margin-top:20px;border-top:1px solid rgba(255,255,255,0.08)}
+.nav-links a{color:#7ec8e3;text-decoration:none;font-size:.9rem;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.04);transition:background .2s}
+.nav-links a:hover{background:rgba(0,210,255,.12)}
+.tools-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:16px 0;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06)}
+.tools-nav a{color:#aaa;text-decoration:none;font-size:.85rem;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,0.03);transition:color .2s}
+.tools-nav a:hover{color:#00d2ff}
+footer{text-align:center;padding:30px 20px;color:#666;font-size:.8rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:20px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;padding:10px 24px;border-radius:8px;font-size:.9rem;opacity:0;transition:opacity .3s;z-index:999}
+.toast.show{opacity:1}
+@media(max-width:600px){header h1{font-size:1.4rem}.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back-link">← 返回工具列表</a>
+<header><h1>✨ AI 命名生成器</h1><p>输入关键词，生成创意 AI 产品名（中英文）</p></header>
+<div class="card">
+<label for="keyword">输入关键词（如：写作、数据分析、聊天）</label>
+<input type="text" id="keyword" placeholder="例如：写作助手、数据分析、智能客服">
+<button onclick="generate()">🎲 生成命名</button>
+<div id="results" class="result-area"></div>
+</div>
+<div class="tools-nav">
+<strong>SEO 工具：</strong>
+<a href="ai-name-generator.html">AI命名生成器</a>
+<a href="readme-generator.html">README生成器</a>
+<a href="prompt-optimizer.html">提示词优化器</a>
+</div>
+<div class="nav-links">
+<a href="/ai-daily-news/">🤖 AI日报</a>
+<a href="/english-interview/">🚀 English Interview</a>
+<a href="/chuangye-weekly/">🌏 出海工具周报</a>
+<a href="/indie-dev-weekly/">🧑‍💻 独立开发者周刊</a>
+<a href="/nocode-tools/">🔧 NoCode工具导航</a>
+<a href="/cn-seo-site/">🔍 中文SEO工具箱</a>
+</div>
+</div>
+<footer>
+<p>本工具由 AI 站群联合出品 · 所有工具均在浏览器端运行，不收集任何数据</p>
+<p>生成时间：<span id="genTime"></span></p>
+</footer>
+<div id="toast" class="toast">已复制到剪贴板 ✓</div>
+<script>
+const prefixes_zh=['智','灵','云','慧','深','元','超','极','妙','光','星','幻','创','博','锐','瞬','睿','启','融','通'];
+const suffixes_zh=['AI','助手','引擎','大脑','星球','工厂','实验室','工场','助手','管家','精灵','魔方','方舟','矩阵','引擎','工坊','空间','云','核','眼'];
+const prefixes_en=['Smart','Deep','Hyper','Neo','Nova','Quantum','Aero','Flux','Zen','Core','Mind','Brain','Sky','Wave','Pulse','Echo','Spark','Luna','Orbit','Arc'];
+const suffixes_en=['AI','Hub','Lab','Flow','Stack','Base','Kit','Box','Mate','Bot','Gen','Sync','Wise','Craft','Works','Sphere','Lens','Nest','Grid','Plex'];
+const combos=['Pro','Plus','Max','Lite','Go','X','360','OS','OS','OS','OS','OS'];
+
+function generate(){
+ const kw=document.getElementById('keyword').value.trim();
+ if(!kw){alert('请输入关键词');return}
+ const results=[];
+ // 中文组合
+ for(let i=0;i<5;i++){
+  const p=prefixes_zh[Math.floor(Math.random()*prefixes_zh.length)];
+  const s=suffixes_zh[Math.floor(Math.random()*suffixes_zh.length)];
+  results.push({name:`${p}${kw}${s}`,lang:'zh'});
+ }
+ // 英文组合
+ for(let i=0;i<5;i++){
+  const p=prefixes_en[Math.floor(Math.random()*prefixes_en.length)];
+  const s=suffixes_en[Math.floor(Math.random()*suffixes_en.length)];
+  results.push({name:`${p}${kw.replace(/[\u4e00-\u9fa5]/g,'')||'AI'}${s}`,lang:'en'});
+ }
+ // 混合组合
+ for(let i=0;i<3;i++){
+  const p=prefixes_zh[Math.floor(Math.random()*prefixes_zh.length)];
+  const s=combos[Math.floor(Math.random()*combos.length)];
+  results.push({name:`${p}${kw}${s}`,lang:'mix'});
+ }
+ // shuffle
+ for(let i=results.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[results[i],results[j]]=[results[j],results[i]];}
+ const area=document.getElementById('results');
+ area.innerHTML='';
+ results.forEach(r=>{
+  const div=document.createElement('div');
+  div.className='result-card';
+  div.innerHTML=`<div><div class="name">${r.name}</div><div class="sub">${r.lang==='zh'?'中文':'英文'}</div></div><button class="copy-btn" onclick="copyText('${r.name}')">复制</button>`;
+  area.appendChild(div);
+ });
+}
+function copyText(t){
+ navigator.clipboard.writeText(t).then(()=>{const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1500)});
+}
+document.getElementById('genTime').textContent=new Date().toLocaleString('zh-CN');
+</script>
+</body>
+</html>

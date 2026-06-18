@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提示词优化器 - AI日报工具集</title>
+<meta name="description" content="提示词优化器，输入原始提示词添加角色设定、输出格式、约束条件等模板，生成优化后的优质提示词">
+<meta name="keywords" content="提示词优化,Prompt优化,AI提示词,ChatGPT提示词">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#e0e0e0;min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 20px}
+header h1{font-size:1.8rem;background:linear-gradient(90deg,#00d2ff,#3a7bd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+header p{color:#999;margin-top:6px;font-size:.9rem}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;margin:24px 0}
+label{display:block;font-size:.9rem;color:#ccc;margin-bottom:6px;margin-top:14px}
+textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit;resize:vertical;min-height:100px}
+textarea:focus{border-color:#00d2ff}
+.check-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.check-item{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 14px;cursor:pointer;transition:border-color .2s}
+.check-item:hover{border-color:#00d2ff}
+.check-item input{accent-color:#00d2ff}
+.check-item span{font-size:.85rem;color:#ccc}
+button{margin-top:20px;padding:12px 32px;background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer;transition:opacity .2s}
+button:hover{opacity:.85}
+.output-box{margin-top:20px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;font-family:"SF Mono","Fira Code",monospace;font-size:.85rem;line-height:1.7;color:#c8d6e5;white-space:pre-wrap;display:none;max-height:500px;overflow-y:auto}
+.btn-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.btn-row button{margin-top:0;padding:8px 20px;font-size:.9rem}
+.back-link{display:inline-block;color:#7ec8e3;text-decoration:none;font-size:.9rem;margin-bottom:10px}
+.back-link:hover{text-decoration:underline}
+.nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:20px 0;margin-top:20px;border-top:1px solid rgba(255,255,255,0.08)}
+.nav-links a{color:#7ec8e3;text-decoration:none;font-size:.9rem;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.04);transition:background .2s}
+.nav-links a:hover{background:rgba(0,210,255,.12)}
+.tools-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:16px 0;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06)}
+.tools-nav a{color:#aaa;text-decoration:none;font-size:.85rem;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,0.03);transition:color .2s}
+.tools-nav a:hover{color:#00d2ff}
+footer{text-align:center;padding:30px 20px;color:#666;font-size:.8rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:20px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;padding:10px 24px;border-radius:8px;font-size:.9rem;opacity:0;transition:opacity .3s;z-index:999}
+.toast.show{opacity:1}
+@media(max-width:600px){header h1{font-size:1.4rem}.card{padding:18px}.check-group{gap:6px}.check-item{padding:6px 10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back-link">← 返回工具列表</a>
+<header><h1>🧠 提示词优化器</h1><p>输入原始提示词，添加优化要素，生成结构化优质提示词</p></header>
+<div class="card">
+<label for="rawPrompt">原始提示词</label>
+<textarea id="rawPrompt" placeholder="例如：帮我写一篇文章关于人工智能的未来发展"></textarea>
+<label>优化选项（可选）</label>
+<div class="check-group">
+<label class="check-item"><input type="checkbox" id="optRole" checked><span>🎭 角色设定</span></label>
+<label class="check-item"><input type="checkbox" id="optContext"><span>📋 背景补充</span></label>
+<label class="check-item"><input type="checkbox" id="optFormat" checked><span>📐 输出格式</span></label>
+<label class="check-item"><input type="checkbox" id="optConstraint"><span>🚫 约束条件</span></label>
+<label class="check-item"><input type="checkbox" id="optExample"><span>💡 示例参考</span></label>
+<label class="check-item"><input type="checkbox" id="optStep"><span>🔢 步骤分解</span></label>
+</div>
+<button onclick="optimize()">🚀 优化提示词</button>
+<div class="btn-row" id="btnRow" style="display:none">
+<button onclick="copyResult()">📋 复制结果</button>
+</div>
+<div id="output" class="output-box"></div>
+</div>
+<div class="tools-nav">
+<strong>SEO 工具：</strong>
+<a href="ai-name-generator.html">AI命名生成器</a>
+<a href="readme-generator.html">README生成器</a>
+<a href="prompt-optimizer.html">提示词优化器</a>
+</div>
+<div class="nav-links">
+<a href="/ai-daily-news/">🤖 AI日报</a>
+<a href="/english-interview/">🚀 English Interview</a>
+<a href="/chuangye-weekly/">🌏 出海工具周报</a>
+<a href="/indie-dev-weekly/">🧑‍💻 独立开发者周刊</a>
+<a href="/nocode-tools/">🔧 NoCode工具导航</a>
+<a href="/cn-seo-site/">🔍 中文SEO工具箱</a>
+</div>
+</div>
+<footer>
+<p>本工具由 AI 站群联合出品 · 所有工具均在浏览器端运行，不收集任何数据</p>
+<p>生成时间：<span id="genTime"></span></p>
+</footer>
+<div id="toast" class="toast">已复制到剪贴板 ✓</div>
+<script>
+let resultText='';
+function optimize(){
+ const raw=document.getElementById('rawPrompt').value.trim();
+ if(!raw){alert('请先输入原始提示词');return}
+ let optimized=`# 角色设定\n你是一位经验丰富的专业顾问，擅长分析和解决问题。\n\n`;
+ optimized+=`# 任务\n${raw}\n\n`;
+ if(document.getElementById('optContext').checked){
+  optimized+=`# 背景信息\n请基于当前行业最佳实践和最新发展趋势，提供专业且实用的建议。\n\n`;
+ }
+ if(document.getElementById('optFormat').checked){
+  optimized+=`# 输出格式\n请以结构化的方式呈现回答，包含以下部分：\n- **概述**：简要总结核心观点\n- **详细内容**：分点阐述，每点配有具体说明\n- **总结**：归纳关键要点\n- **下一步建议**：提供可执行的操作建议\n\n`;
+ }
+ if(document.getElementById('optConstraint').checked){
+  optimized+=`# 约束条件\n- 回答需专业、准确、有据可依\n- 避免空泛的表述，尽量提供具体案例或数据\n- 如有多种方案，请分别列出优缺点\n- 语言简洁明了，条理清晰\n\n`;
+ }
+ if(document.getElementById('optExample').checked){
+  optimized+=`# 示例参考\n请参照以下风格进行回答：\n- 先给出结论，再展开论述\n- 使用编号列表组织要点\n- 关键信息加粗标注\n\n`;
+ }
+ if(document.getElementById('optStep').checked){
+  optimized+=`# 思考步骤\n请按以下步骤进行分析：\n1. **理解问题**：明确核心需求和目标\n2. **拆解要素**：将问题分解为若干子问题\n3. **逐一分析**：对每个子问题进行深入探讨\n4. **综合结论**：整合各部分分析，得出整体结论\n\n`;
+ }
+ optimized+=`---\n*Generated by AI 提示词优化器*`;
+ resultText=optimized;
+ const box=document.getElementById('output');
+ box.style.display='block';
+ box.textContent=resultText;
+ document.getElementById('btnRow').style.display='flex';
+}
+function copyResult(){
+ navigator.clipboard.writeText(resultText).then(showToast);
+}
+function showToast(){
+ const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);
+}
+document.getElementById('genTime').textContent=new Date().toLocaleString('zh-CN');
+</script>
+</body>
+</html>

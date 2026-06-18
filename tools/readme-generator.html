@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>README 生成器 - AI日报工具集</title>
+<meta name="description" content="README.md生成器，输入项目信息一键生成标准README模板，支持Markdown预览和复制">
+<meta name="keywords" content="README生成,文档生成,Markdown模板,开源文档">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#e0e0e0;min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 20px}
+header h1{font-size:1.8rem;background:linear-gradient(90deg,#00d2ff,#3a7bd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+header p{color:#999;margin-top:6px;font-size:.9rem}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;margin:24px 0}
+label{display:block;font-size:.9rem;color:#ccc;margin-bottom:6px;margin-top:14px}
+input[type=text],textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input[type=text]:focus,textarea:focus{border-color:#00d2ff}
+textarea{resize:vertical;min-height:80px}
+button{margin-top:20px;padding:12px 32px;background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer;transition:opacity .2s}
+button:hover{opacity:.85}
+.preview-box{margin-top:20px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;white-space:pre-wrap;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.85rem;line-height:1.7;color:#c8d6e5;max-height:600px;overflow-y:auto;display:none}
+.preview-box .hl-title{color:#00d2ff;font-size:1.3rem;font-weight:bold}
+.preview-box .hl-heading{color:#3a7bd5}
+.preview-box .hl-bold{color:#ffd700}
+.btn-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.btn-row button{margin-top:0;padding:8px 20px;font-size:.9rem}
+.back-link{display:inline-block;color:#7ec8e3;text-decoration:none;font-size:.9rem;margin-bottom:10px}
+.back-link:hover{text-decoration:underline}
+.nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:20px 0;margin-top:20px;border-top:1px solid rgba(255,255,255,0.08)}
+.nav-links a{color:#7ec8e3;text-decoration:none;font-size:.9rem;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.04);transition:background .2s}
+.nav-links a:hover{background:rgba(0,210,255,.12)}
+.tools-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:16px 0;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06)}
+.tools-nav a{color:#aaa;text-decoration:none;font-size:.85rem;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,0.03);transition:color .2s}
+.tools-nav a:hover{color:#00d2ff}
+footer{text-align:center;padding:30px 20px;color:#666;font-size:.8rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:20px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#00d2ff,#3a7bd5);color:#fff;padding:10px 24px;border-radius:8px;font-size:.9rem;opacity:0;transition:opacity .3s;z-index:999}
+.toast.show{opacity:1}
+@media(max-width:600px){header h1{font-size:1.4rem}.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back-link">← 返回工具列表</a>
+<header><h1>📝 README 生成器</h1><p>输入项目信息，一键生成标准 README.md 模板</p></header>
+<div class="card">
+<label for="projName">项目名称</label>
+<input type="text" id="projName" placeholder="例如：my-awesome-project">
+<label for="projDesc">项目描述</label>
+<textarea id="projDesc" rows="3" placeholder="简要描述项目的功能和用途"></textarea>
+<label for="projFeatures">功能列表（每行一个）</label>
+<textarea id="projFeatures" rows="4" placeholder="快速启动&#10;多语言支持&#10;API 接口&#10;单元测试"></textarea>
+<label for="projInstall">安装命令</label>
+<input type="text" id="projInstall" placeholder="npm install my-awesome-project">
+<label for="projUsage">使用示例</label>
+<textarea id="projUsage" rows="4" placeholder="import Awesome from 'my-awesome-project';&#10;Awesome.init();"></textarea>
+<button onclick="generate()">📄 生成 README</button>
+<div class="btn-row" id="btnRow" style="display:none">
+<button class="copy-btn" onclick="copyMD()">📋 复制 Markdown</button>
+<button class="copy-btn" onclick="copyRaw()">📄 复制纯文本</button>
+</div>
+<div id="preview" class="preview-box"></div>
+</div>
+<div class="tools-nav">
+<strong>SEO 工具：</strong>
+<a href="ai-name-generator.html">AI命名生成器</a>
+<a href="readme-generator.html">README生成器</a>
+<a href="prompt-optimizer.html">提示词优化器</a>
+</div>
+<div class="nav-links">
+<a href="/ai-daily-news/">🤖 AI日报</a>
+<a href="/english-interview/">🚀 English Interview</a>
+<a href="/chuangye-weekly/">🌏 出海工具周报</a>
+<a href="/indie-dev-weekly/">🧑‍💻 独立开发者周刊</a>
+<a href="/nocode-tools/">🔧 NoCode工具导航</a>
+<a href="/cn-seo-site/">🔍 中文SEO工具箱</a>
+</div>
+</div>
+<footer>
+<p>本工具由 AI 站群联合出品 · 所有工具均在浏览器端运行，不收集任何数据</p>
+<p>生成时间：<span id="genTime"></span></p>
+</footer>
+<div id="toast" class="toast">已复制到剪贴板 ✓</div>
+<script>
+let mdText='';
+function generate(){
+ const name=document.getElementById('projName').value.trim()||'项目名称';
+ const desc=document.getElementById('projDesc').value.trim()||'暂无描述';
+ const feats=document.getElementById('projFeatures').value.trim().split('\n').filter(Boolean);
+ const install=document.getElementById('projInstall').value.trim();
+ const usage=document.getElementById('projUsage').value.trim();
+ let md=`# ${name}\n\n`;
+ md+=`${desc}\n\n`;
+ md+='## ✨ 功能特性\n\n';
+ feats.forEach(f=>{md+=`- ${f}\n`});
+ md+='\n## 📦 安装\n\n';
+ if(install) md+=`\`\`\`bash\n${install}\n\`\`\`\n\n`;
+ else md+='```bash\n# 安装命令待补充\n```\n\n';
+ md+='## 🚀 使用示例\n\n';
+ if(usage) md+=`\`\`\`javascript\n${usage}\n\`\`\`\n\n`;
+ else md+='```javascript\n// 使用示例待补充\n```\n\n';
+ md+='## 📄 许可证\n\nMIT License\n\n';
+ md+='---\n\n*Generated by AI 命名生成器*\n';
+ mdText=md;
+ const box=document.getElementById('preview');
+ box.style.display='block';
+ box.textContent=md;
+ document.getElementById('btnRow').style.display='flex';
+}
+function copyMD(){
+ navigator.clipboard.writeText(mdText).then(showToast);
+}
+function copyRaw(){
+ navigator.clipboard.writeText(mdText).then(showToast);
+}
+function showToast(){
+ const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);
+}
+document.getElementById('genTime').textContent=new Date().toLocaleString('zh-CN');
+</script>
+</body>
+</html>
